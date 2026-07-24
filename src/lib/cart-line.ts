@@ -6,15 +6,15 @@ import type {
 
 export const getCartLineId = (
   productId: ProductId,
-  variantId: VariantId,
+  variantId: VariantId | null,
 ): string => {
-  return `${productId}:${variantId}`;
+  return `${productId}:${variantId ?? ""}`;
 };
 
 export const isSameCartLine = (
   line: BundleLine,
   productId: ProductId,
-  variantId: VariantId,
+  variantId: VariantId | null,
 ): boolean => {
   return line.productId === productId && line.variantId === variantId;
 };
@@ -22,7 +22,7 @@ export const isSameCartLine = (
 export const findCartLine = (
   lines: BundleLine[],
   productId: ProductId,
-  variantId: VariantId,
+  variantId: VariantId | null,
 ): BundleLine | undefined => {
   return lines.find((line) => isSameCartLine(line, productId, variantId));
 };
@@ -30,7 +30,7 @@ export const findCartLine = (
 export const removeCartLine = (
   lines: BundleLine[],
   productId: ProductId,
-  variantId: VariantId,
+  variantId: VariantId | null,
 ): BundleLine[] => {
   return lines.filter((line) => !isSameCartLine(line, productId, variantId));
 };

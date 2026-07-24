@@ -40,7 +40,7 @@ export function StepHeader({
   return (
     <div className={`w-full ${isOpen ? "bg-panel rounded-t-lg" : ""}`}>
       <div
-        className={`text-xs font-normal uppercase text-muted mb-1 px-3.5 ${isOpen ? "pt-3.5" : "pt-0"}`}
+        className={`text-xs font-medium uppercase tracking-widest text-muted mb-1 px-3.5 ${isOpen ? "pt-2.5" : "pt-0"}`}
       >
         Step {step.stepNumber} of 4
       </div>
@@ -58,7 +58,7 @@ export function StepHeader({
             alt=""
             className="w-6 h-6 shrink-0 object-contain"
           />
-          <span className="text-lg sm:text-[22px] font-normal text-heading truncate">
+          <span className="text-lg sm:text-[22px] font-semibold text-[#0B0D10] truncate">
             {step.title}
           </span>
         </span>
@@ -68,14 +68,14 @@ export function StepHeader({
             {hasSelected && (
               <span
                 key={selectedCount}
-                className="animate-fade-scale text-xs sm:text-sm text-primary inline-block tabular-nums whitespace-nowrap"
+                className="animate-fade-scale text-xs sm:text-sm text-[#4E2FD2] inline-block tabular-nums font-medium whitespace-nowrap"
               >
                 {selectedCount} selected
               </span>
             )}
           </div>
           <CustomChevron
-            className={`text-primary shrink-0 transition-transform duration-300 ${!isOpen ? "rotate-180" : ""}`}
+            className={`text-[#4E2FD2] shrink-0 transition-transform duration-300 ${!isOpen ? "rotate-180" : ""}`}
           />
         </span>
       </button>

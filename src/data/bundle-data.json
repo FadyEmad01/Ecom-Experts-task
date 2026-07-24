@@ -158,6 +158,8 @@
       "description": "Two cameras. Two views. Double the porch protection.",
       "image": "products/cameras/Wyze Duo Cam Doorbell.png",
       "learnMoreUrl": "#",
+      "price": 69.98,
+      "compareAtPrice": null,
       "rules": {
         "minQty": 0,
         "maxQty": 1,
@@ -202,6 +204,8 @@
       "name": "Cam Unlimited",
       "description": "Home Monitoring Plan",
       "learnMoreUrl": "#",
+      "price": 9.99,
+      "compareAtPrice": 12.99,
       "rules": {
         "minQty": 0,
         "maxQty": 1,
@@ -224,6 +228,8 @@
       "description": "Detect motion and trigger automations instantly.",
       "image": "products/sensors/Wyze Sense Motion Sensor.png",
       "learnMoreUrl": "#",
+      "price": 29.99,
+      "compareAtPrice": null,
       "rules": {
         "minQty": 0,
         "maxQty": 5,
@@ -237,6 +243,8 @@
       "description": "Required for Wyze sensors. Connects up to 100 sensors.",
       "image": "products/sensors/Wyze Sense Hub.png",
       "learnMoreUrl": "#",
+      "price": 0,
+      "compareAtPrice": 29.92,
       "rules": {
         "minQty": 0,
         "maxQty": 1,
@@ -251,6 +259,8 @@
       "description": "Local storage for your Wyze cameras.",
       "image": "products/accessories/Wyze MicroSD Card.png",
       "learnMoreUrl": "#",
+      "price": 20.98,
+      "compareAtPrice": null,
       "rules": {
         "minQty": 0,
         "maxQty": 3,
@@ -269,13 +279,13 @@
       "cameras": "Cameras",
       "plans": "Plan",
       "sensors": "Sensors",
-      "protection": "Protection"
+      "protection": "Accessories"
     },
     "groups": [
       { "stepId": "cameras", "label": "Cameras" },
       { "stepId": "plans", "label": "Plan" },
       { "stepId": "sensors", "label": "Sensors" },
-      { "stepId": "protection", "label": "Protection" }
+      { "stepId": "protection", "label": "Accessories" }
     ],
     "pricing": {
       "shippingLabel": "Shipping",
@@ -287,8 +297,8 @@
       "guaranteeWidth": 78
     },
     "actions": {
-      "checkoutLabel": "Proceed to Checkout",
-      "saveLabel": "Save my bundle"
+      "checkoutLabel": "Checkout",
+      "saveLabel": "Save my system for later"
     }
   },
   "initialState": {

@@ -24,7 +24,7 @@ interface StepAccordionProps {
   onVariantChange: (productId: ProductId, variantId: VariantId) => void;
   onQuantityChange: (
     productId: ProductId,
-    variantId: VariantId,
+    variantId: VariantId | null,
     quantity: number,
   ) => void;
 }
@@ -49,11 +49,13 @@ export function StepAccordion({
     if (contentRef.current) setH(contentRef.current.scrollHeight);
   });
 
-  const selectedCount = state.lines.reduce((t, line) => {
-    return products.some((p) => p.id === line.productId)
-      ? t + line.quantity
-      : t;
-  }, 0);
+  const selectedCount = new Set(
+    state.lines
+      .filter((line) =>
+        line.quantity > 0 && products.some((product) => product.id === line.productId),
+      )
+      .map((line) => line.productId),
+  ).size;
 
   return (
     <section>

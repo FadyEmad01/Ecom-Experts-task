@@ -48,10 +48,10 @@ export interface BundleStoreState {
   setActiveVariant: (productId: ProductId, variantId: VariantId) => void;
   setLineQuantity: (
     productId: ProductId,
-    variantId: VariantId,
+    variantId: VariantId | null,
     quantity: number,
   ) => void;
-  removeLine: (productId: ProductId, variantId: VariantId) => void;
+  removeLine: (productId: ProductId, variantId: VariantId | null) => void;
   resetBundle: () => void;
 }
 
@@ -75,7 +75,7 @@ export const createBundleStore = () => {
 
         setLineQuantity: (
           productId: ProductId,
-          variantId: VariantId,
+          variantId: VariantId | null,
           quantity: number,
         ) => {
           set((state) => {
@@ -111,7 +111,7 @@ export const createBundleStore = () => {
           });
         },
 
-        removeLine: (productId: ProductId, variantId: VariantId) => {
+        removeLine: (productId: ProductId, variantId: VariantId | null) => {
           set((state) => ({
             lines: removeCartLine(state.lines, productId, variantId),
           }));

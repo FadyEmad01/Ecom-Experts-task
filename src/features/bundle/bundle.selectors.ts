@@ -52,10 +52,10 @@ export const getActiveVariantId = (
 export const getLineQuantity = (
   state: BundleState,
   productId: ProductId,
-  variantId: VariantId,
+  variantId: VariantId | null,
 ): number => {
   const line = state.lines.find(
-    (l) => l.productId === productId && l.variantId === variantId,
+     (l) => l.productId === productId && (l.variantId === variantId || variantId === null),
   );
   return line?.quantity ?? 0;
 };
@@ -73,8 +73,9 @@ export const getResolvedBundleLines = (
         ? getVariantById(product, line.variantId)
         : null;
 
-      const unitPrice = variant?.price ?? 0;
-      const unitCompareAtPrice = variant?.compareAtPrice ?? null;
+      const unitPrice = variant?.price ?? product.price ?? 0;
+      const unitCompareAtPrice =
+        variant?.compareAtPrice ?? product.compareAtPrice ?? null;
 
       return {
         line,

@@ -71,14 +71,14 @@ export function VariantSelector({
             aria-pressed={isActive}
             onClick={() => onChange(variant.id)}
             className={cn(
-              "inline-flex items-center gap-1.5 rounded-xs border px-1 py-0.5 font-bold transition-colors",
+              "inline-flex items-center gap-1.5 rounded-xs border ps-1 pr-1.5 py-0.5 font-medium transition-colors",
               isActive
                 ? "border-success bg-[#f2fcf9] text-heading"
                 : "border-line-soft bg-white text-heading hover:border-success/50",
             )}
           >
             <VariantSwatch variant={variant} />
-            <span className="text-[10px]">{variant.label}</span>
+            <span className="text-[10px] text-[#1F1F1F]">{variant.label}</span>
           </button>
         );
       })}

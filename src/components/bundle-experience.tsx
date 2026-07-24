@@ -7,7 +7,7 @@ import type { ProductId, VariantId } from "@/features/bundle/bundle.types";
 import { useBundle } from "@/hooks/use-bundle";
 
 export function BundleExperience() {
-  const { data, resolvedLines, totals, setLineQuantity, resetBundle } =
+  const { data, activeStepId, activeVariants, lines, resolvedLines, totals, setLineQuantity } =
     useBundle();
 
   const handleQuantityChange = useCallback(
@@ -18,6 +18,22 @@ export function BundleExperience() {
     [setLineQuantity],
   );
 
+  const handleSave = useCallback(() => {
+    if (typeof window === "undefined") return;
+
+    window.localStorage.setItem(
+      data.bundle.storageKey,
+      JSON.stringify({
+        state: {
+          activeStepId,
+          activeVariants,
+          lines,
+        },
+        version: 0,
+      }),
+    );
+  }, [activeStepId, activeVariants, data.bundle.storageKey, lines]);
+
   return (
     <div className="grid grid-cols-1 gap-7 lg:grid-cols-[minmax(0,1fr)_320px] xl:grid-cols-[768px_399px] [&>*]:min-w-0">
       <BundleBuilder />
@@ -27,7 +43,7 @@ export function BundleExperience() {
         resolvedLines={resolvedLines}
         totals={totals}
         onQuantityChange={handleQuantityChange}
-        onSave={resetBundle}
+        onSave={handleSave}
       />
     </div>
   );

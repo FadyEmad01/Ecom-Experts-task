@@ -20,7 +20,7 @@ interface ProductGridProps {
   onVariantChange: (productId: ProductId, variantId: VariantId) => void;
   onQuantityChange: (
     productId: ProductId,
-    variantId: VariantId,
+    variantId: VariantId | null,
     quantity: number,
   ) => void;
 }
@@ -37,12 +37,10 @@ export function ProductGrid({
     <div className="flex flex-wrap gap-4 justify-center">
       {products.map((product) => {
         const activeVariantId = getActiveVariantId(state, product);
-        const quantity = activeVariantId
-          ? getLineQuantity(state, product.id, activeVariantId)
-          : 0;
+        const quantity = getLineQuantity(state, product.id, activeVariantId);
 
         return (
-          <div key={product.id} className="w-full sm:w-[calc(50%-0.5rem)]">
+          <div key={product.id} className="w-full h-auto sm:w-[calc(50%-0.5rem)]">
             <ProductCard
               product={product}
               currency={currency}
@@ -53,9 +51,7 @@ export function ProductGrid({
                 onVariantChange(product.id, variantId)
               }
               onQuantityChange={(q) =>
-                activeVariantId
-                  ? onQuantityChange(product.id, activeVariantId, q)
-                  : undefined
+                onQuantityChange(product.id, activeVariantId, q)
               }
             />
           </div>

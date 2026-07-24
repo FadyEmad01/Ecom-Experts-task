@@ -42,6 +42,8 @@ export interface BundleProduct {
   description: string;
   image?: string;
   learnMoreUrl: string;
+  price?: number;
+  compareAtPrice?: number | null;
   rules: ProductRules;
   variants: ProductVariant[];
   required?: boolean;
