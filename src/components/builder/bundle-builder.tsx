@@ -18,13 +18,13 @@ export function BundleBuilder() {
 
   const state: BundleState = { activeStepId, activeVariants, lines };
 
-  function getNextStepId(currentStepId: string): string | null {
-    const currentIndex = data.steps.findIndex(
-      (step) => step.id === currentStepId,
-    );
-    const nextStep = data.steps[currentIndex + 1];
-    return nextStep?.id ?? null;
-  }
+  // function getNextStepId(currentStepId: string): string | null {
+  //   const currentIndex = data.steps.findIndex(
+  //     (step) => step.id === currentStepId,
+  //   );
+  //   const nextStep = data.steps[currentIndex + 1];
+  //   return nextStep?.id ?? null;
+  // }
 
   return (
     <div className="space-y-3">
@@ -35,6 +35,10 @@ export function BundleBuilder() {
       {data.steps.map((step) => {
         const isOpen = activeStepId === step.id;
         const products = getProductsForStep(step.id);
+        const currentStepIndex = data.steps.findIndex(
+          (currentStep) => currentStep.id === step.id,
+        );
+        const nextStep = data.steps[currentStepIndex + 1];
 
         return (
           <StepAccordion
@@ -46,7 +50,8 @@ export function BundleBuilder() {
             currency={data.bundle.currency}
             locale={data.bundle.locale}
             onToggle={() => setActiveStep(isOpen ? null : step.id)}
-            onNext={() => setActiveStep(getNextStepId(step.id))}
+            onNext={nextStep ? () => setActiveStep(nextStep.id) : undefined}
+            nextStepTitle={nextStep?.title}
             onVariantChange={setActiveVariant}
             onQuantityChange={setLineQuantity}
           />

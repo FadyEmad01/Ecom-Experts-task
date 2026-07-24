@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { Button } from "@/components/ui/button";
 import type {
   BundleProduct,
   BundleState,
@@ -21,6 +20,7 @@ interface StepAccordionProps {
   locale: string;
   onToggle: () => void;
   onNext?: () => void;
+  nextStepTitle?: string;
   onVariantChange: (productId: ProductId, variantId: VariantId) => void;
   onQuantityChange: (
     productId: ProductId,
@@ -38,6 +38,7 @@ export function StepAccordion({
   locale,
   onToggle,
   onNext,
+  nextStepTitle,
   onVariantChange,
   onQuantityChange,
 }: StepAccordionProps) {
@@ -80,13 +81,13 @@ export function StepAccordion({
             onQuantityChange={onQuantityChange}
           />
           {onNext && (
-            <div className="mt-4 flex justify-center">
+            <div className="mt-4 pb-1 flex justify-center">
               <button
                 type="button"
-                className="rounded-md border-2 border-[#4E2FD2] text-[#4E2FD2] font-semibold bg-transparent px-4 py-1"
+                className="rounded-md border-2 border-[#4E2FD2] text-[#4E2FD2] font-semibold bg-transparent px-5 py-1.5"
                 onClick={onNext}
               >
-                Next
+                {`Next: ${nextStepTitle}`}
               </button>
             </div>
           )}

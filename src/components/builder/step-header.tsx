@@ -49,7 +49,7 @@ export function StepHeader({
         type="button"
         aria-expanded={isOpen}
         onClick={onToggle}
-        className={`flex w-full items-center justify-between py-4 border-t ${!isOpen ? "border-b" : ""}  border-line-soft text-left outline-none transition-all hover:opacity-80 px-3.5`}
+        className={`flex w-full items-center justify-between py-4 border-t ${!isOpen ? "border-b" : ""}  border-[#1F1F1F] text-left outline-none transition-all hover:opacity-80 px-3.5`}
       >
         <span className="flex flex-1 min-w-0 items-center gap-3">
           {/* biome-ignore lint/performance/noImgElement: icon is a runtime string path from JSON data */}
