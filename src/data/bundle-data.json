@@ -203,6 +203,7 @@
       "id": "cam-unlimited",
       "name": "Cam Unlimited",
       "description": "Home Monitoring Plan",
+      "image": "/wyze.svg",
       "learnMoreUrl": "#",
       "price": 9.99,
       "compareAtPrice": 12.99,
@@ -246,7 +247,7 @@
       "price": 0,
       "compareAtPrice": 29.92,
       "rules": {
-        "minQty": 0,
+        "minQty": 1,
         "maxQty": 1,
         "defaultQty": 1
       },
@@ -304,6 +305,37 @@
   "initialState": {
     "activeStepId": "cameras",
     "activeVariants": {},
-    "lines": []
+    "lines": [
+      {
+        "id": "wyze-sense-hub:null",
+        "productId": "wyze-sense-hub",
+        "variantId": null,
+        "quantity": 1
+      },
+      {
+        "id": "wyze-sense-motion-sensor:null",
+        "productId": "wyze-sense-motion-sensor",
+        "variantId": null,
+        "quantity": 1
+      },
+      {
+        "id": "wyze-duo-cam-doorbell:null",
+        "productId": "wyze-duo-cam-doorbell",
+        "variantId": null,
+        "quantity": 1
+      },
+      {
+        "id": "wyze-microsd-card-256gb:null",
+        "productId": "wyze-microsd-card-256gb",
+        "variantId": null,
+        "quantity": 1
+      },
+      {
+        "id": "cam-unlimited:cam-unlimited-monthly",
+        "productId": "cam-unlimited",
+        "variantId": "cam-unlimited-monthly",
+        "quantity": 1
+      }
+    ]
   }
 }

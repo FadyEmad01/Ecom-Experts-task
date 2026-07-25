@@ -23,10 +23,10 @@ const findStepByProduct = (product: BundleProduct): BundleStep | undefined => {
 };
 
 const clampQuantity = (quantity: number, product: BundleProduct): number => {
-  return Math.max(
-    product.rules.minQty,
-    Math.min(product.rules.maxQty, quantity),
-  );
+  const effectiveMin = product.required
+    ? Math.max(product.rules.minQty, 1)
+    : product.rules.minQty;
+  return Math.max(effectiveMin, Math.min(product.rules.maxQty, quantity));
 };
 
 const removeLinesByStep = (

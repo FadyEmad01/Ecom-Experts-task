@@ -12,6 +12,8 @@ const CAM_UNLIMITED = "cam-unlimited" as ProductId;
 const CAM_UNLIMITED_MONTHLY = "cam-unlimited-monthly" as VariantId;
 const INVALID_PRODUCT = "nonexistent-product" as ProductId;
 
+const SEEDED_COUNT = 5;
+
 describe("createBundleStore", () => {
   describe("initial state", () => {
     it("has activeStepId set to cameras", () => {
@@ -24,9 +26,9 @@ describe("createBundleStore", () => {
       expect(store.getState().activeVariants).toEqual({});
     });
 
-    it("has empty lines array", () => {
+    it("has seeded lines from bundle data", () => {
       const store = createBundleStore();
-      expect(store.getState().lines).toEqual([]);
+      expect(store.getState().lines).toHaveLength(SEEDED_COUNT);
     });
   });
 
@@ -92,8 +94,12 @@ describe("createBundleStore", () => {
       it("adds a new line when quantity is greater than 0", () => {
         const store = createBundleStore();
         store.getState().setLineQuantity(CAM_V4, CAM_V4_WHITE, 2);
-        expect(store.getState().lines).toHaveLength(1);
-        expect(store.getState().lines[0]).toEqual({
+        const line = store
+          .getState()
+          .lines.find(
+            (l) => l.productId === CAM_V4 && l.variantId === CAM_V4_WHITE,
+          );
+        expect(line).toEqual({
           id: `${CAM_V4}:${CAM_V4_WHITE}`,
           productId: CAM_V4,
           variantId: CAM_V4_WHITE,
@@ -105,22 +111,36 @@ describe("createBundleStore", () => {
         const store = createBundleStore();
         store.getState().setLineQuantity(CAM_V4, CAM_V4_WHITE, 2);
         store.getState().setLineQuantity(CAM_V4, CAM_V4_WHITE, 4);
-        expect(store.getState().lines).toHaveLength(1);
-        expect(store.getState().lines[0].quantity).toBe(4);
+        const line = store
+          .getState()
+          .lines.find(
+            (l) => l.productId === CAM_V4 && l.variantId === CAM_V4_WHITE,
+          );
+        expect(line?.quantity).toBe(4);
       });
 
       it("removes a line when quantity is set to 0", () => {
         const store = createBundleStore();
         store.getState().setLineQuantity(CAM_V4, CAM_V4_WHITE, 2);
         store.getState().setLineQuantity(CAM_V4, CAM_V4_WHITE, 0);
-        expect(store.getState().lines).toHaveLength(0);
+        const line = store
+          .getState()
+          .lines.find(
+            (l) => l.productId === CAM_V4 && l.variantId === CAM_V4_WHITE,
+          );
+        expect(line).toBeUndefined();
       });
 
       it("removes a line when quantity is negative", () => {
         const store = createBundleStore();
         store.getState().setLineQuantity(CAM_V4, CAM_V4_WHITE, 2);
         store.getState().setLineQuantity(CAM_V4, CAM_V4_WHITE, -3);
-        expect(store.getState().lines).toHaveLength(0);
+        const line = store
+          .getState()
+          .lines.find(
+            (l) => l.productId === CAM_V4 && l.variantId === CAM_V4_WHITE,
+          );
+        expect(line).toBeUndefined();
       });
     });
 
@@ -128,7 +148,12 @@ describe("createBundleStore", () => {
       it("clamps quantity above maxQty to maxQty", () => {
         const store = createBundleStore();
         store.getState().setLineQuantity(CAM_V4, CAM_V4_WHITE, 10);
-        expect(store.getState().lines[0].quantity).toBe(5);
+        const line = store
+          .getState()
+          .lines.find(
+            (l) => l.productId === CAM_V4 && l.variantId === CAM_V4_WHITE,
+          );
+        expect(line?.quantity).toBe(5);
       });
 
       it("clamps quantity to maxQty of 1 for doorbell", () => {
@@ -140,13 +165,26 @@ describe("createBundleStore", () => {
             "doorbell-variant" as VariantId,
             5,
           );
-        expect(store.getState().lines[0].quantity).toBe(1);
+        const line = store
+          .getState()
+          .lines.find(
+            (l) =>
+              l.productId === ("wyze-duo-cam-doorbell" as ProductId) &&
+              l.variantId === ("doorbell-variant" as VariantId),
+          );
+        expect(line?.quantity).toBe(1);
       });
 
       it("clamps floodlight quantity to maxQty of 3", () => {
         const store = createBundleStore();
         store.getState().setLineQuantity(FLOODLIGHT, FLOODLIGHT_WHITE, 100);
-        expect(store.getState().lines[0].quantity).toBe(3);
+        const line = store
+          .getState()
+          .lines.find(
+            (l) =>
+              l.productId === FLOODLIGHT && l.variantId === FLOODLIGHT_WHITE,
+          );
+        expect(line?.quantity).toBe(3);
       });
     });
 
@@ -196,10 +234,11 @@ describe("createBundleStore", () => {
     describe("non-existent product", () => {
       it("does not change state for an invalid productId", () => {
         const store = createBundleStore();
+        const before = store.getState().lines.length;
         store
           .getState()
           .setLineQuantity(INVALID_PRODUCT, "some-variant" as VariantId, 3);
-        expect(store.getState().lines).toEqual([]);
+        expect(store.getState().lines).toHaveLength(before);
       });
     });
   });
@@ -210,15 +249,27 @@ describe("createBundleStore", () => {
       store.getState().setLineQuantity(CAM_V4, CAM_V4_WHITE, 2);
       store.getState().setLineQuantity(CAM_PAN, CAM_PAN_WHITE, 1);
       store.getState().removeLine(CAM_V4, CAM_V4_WHITE);
-      expect(store.getState().lines).toHaveLength(1);
-      expect(store.getState().lines[0].productId).toBe(CAM_PAN);
+      const removedLine = store
+        .getState()
+        .lines.find(
+          (l) => l.productId === CAM_V4 && l.variantId === CAM_V4_WHITE,
+        );
+      const keptLine = store
+        .getState()
+        .lines.find(
+          (l) => l.productId === CAM_PAN && l.variantId === CAM_PAN_WHITE,
+        );
+      expect(removedLine).toBeUndefined();
+      expect(keptLine).toBeDefined();
+      expect(keptLine?.quantity).toBe(1);
     });
 
     it("does nothing when removing a line that does not exist", () => {
       const store = createBundleStore();
+      const before = store.getState().lines.length;
       store.getState().setLineQuantity(CAM_V4, CAM_V4_WHITE, 1);
       store.getState().removeLine(CAM_PAN, CAM_PAN_WHITE);
-      expect(store.getState().lines).toHaveLength(1);
+      expect(store.getState().lines).toHaveLength(before + 1);
     });
   });
 
@@ -231,7 +282,7 @@ describe("createBundleStore", () => {
       store.getState().resetBundle();
       expect(store.getState().activeStepId).toBe("cameras");
       expect(store.getState().activeVariants).toEqual({});
-      expect(store.getState().lines).toEqual([]);
+      expect(store.getState().lines).toHaveLength(SEEDED_COUNT);
     });
   });
 });

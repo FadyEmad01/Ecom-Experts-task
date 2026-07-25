@@ -38,7 +38,8 @@ export function ProductCard({
 
   const isSelected = quantity > 0;
   const unitPrice = activeVariant?.price ?? product.price ?? 0;
-  const comparePrice = activeVariant?.compareAtPrice ?? product.compareAtPrice ?? null;
+  const comparePrice =
+    activeVariant?.compareAtPrice ?? product.compareAtPrice ?? null;
   const showCompare = hasSavings(comparePrice, unitPrice);
   const effectiveQty = Math.max(1, quantity);
   const compareTotal = (comparePrice ?? 0) * effectiveQty;
@@ -51,7 +52,9 @@ export function ProductCard({
     <article
       className={cn(
         "flex items-center gap-3 sm:gap-4 rounded-md border-none bg-white p-2.5 transition-all duration-200 w-full h-full relative",
-        isSelected ? "border-[#4E2FD2B2] ring-2 ring-[#4E2FD2B2]" : "border-line-soft",
+        isSelected
+          ? "border-[#4E2FD2B2] ring-2 ring-[#4E2FD2B2]"
+          : "border-line-soft",
         className,
       )}
     >
@@ -68,18 +71,18 @@ export function ProductCard({
       </div>
 
       {discountBadge && (
-        <Badge
-          className="absolute top-2 left-2 w-fit rounded-full px-2 py-0.5 text-[10px] font-medium capitalize tracking-wide bg-[#4E2FD2]"
-        >
+        <Badge className="absolute top-2 left-2 w-fit rounded-full px-2 py-0.5 text-[10px] font-medium capitalize tracking-wide bg-[#4E2FD2]">
           {discountBadge}
         </Badge>
       )}
 
       {/* Content */}
       <div className="flex flex-1 flex-col min-w-0 gap-2">
-
         <h3 className="text-base font-bold text-[#1F1F1F] leading-tight line-clamp-1">
           {product.name}
+          {product.required && (
+            <span className="font-normal text-[#575757] ml-1">(Required)</span>
+          )}
         </h3>
 
         <p className="text-xs leading-relaxed text-[#1F1F1FBF] line-clamp-3 font-medium text-pretty">

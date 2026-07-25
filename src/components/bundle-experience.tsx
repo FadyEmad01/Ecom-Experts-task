@@ -7,12 +7,18 @@ import type { ProductId, VariantId } from "@/features/bundle/bundle.types";
 import { useBundle } from "@/hooks/use-bundle";
 
 export function BundleExperience() {
-  const { data, activeStepId, activeVariants, lines, resolvedLines, totals, setLineQuantity } =
-    useBundle();
+  const {
+    data,
+    activeStepId,
+    activeVariants,
+    lines,
+    resolvedLines,
+    totals,
+    setLineQuantity,
+  } = useBundle();
 
   const handleQuantityChange = useCallback(
     (productId: ProductId, variantId: VariantId | null, quantity: number) => {
-      if (variantId === null) return;
       setLineQuantity(productId, variantId, quantity);
     },
     [setLineQuantity],
