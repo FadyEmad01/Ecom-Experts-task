@@ -1,4 +1,3 @@
-import { TruckElectric } from "lucide-react";
 import { Price } from "@/components/ui/price";
 import type {
   BundleTotals,
@@ -14,16 +13,16 @@ interface ReviewTotalsProps {
   locale: string;
 }
 
-function GuaranteeSeal({ image, width }: { image: string; width: number }) {
+function GuaranteeSeal({ width }: { width: number }) {
   return (
     <div
       className="relative shrink-0 select-none flex items-center justify-center"
       style={{ width }}
     >
       <img
-        src={image}
+        src="/Satisfaction_Badge.svg"
         alt="100% Wyze Guarantee"
-        className="absolute inset-0 size-full object-contain"
+        className="size-full object-contain"
       />
     </div>
   );
@@ -51,8 +50,12 @@ export function ReviewTotals({
     <div>
       {/* Shipping Row */}
       <div className="flex items-center gap-3 py-3">
-        <div className="flex size-10 shrink-0 items-center justify-center overflow-hidden rounded bg-white">
-          <TruckElectric className="size-7 text-success" strokeWidth={2} />
+        <div className="flex size-10 shrink-0 items-center justify-center overflow-hidden rounded-[5px] bg-white">
+          <img
+            src="/carbon_delivery.svg"
+            alt="Delivery"
+            className="size-7 object-contain"
+          />
         </div>
 
         <div className="flex-1 min-w-0 pr-2">
@@ -66,7 +69,7 @@ export function ReviewTotals({
             <span className="text-[11px] font-medium text-muted-light line-through leading-none mb-0.5">
               $5.99
             </span>
-            <span className="text-[13px] font-semibold leading-none text-primary tabular-nums uppercase">
+            <span className="text-[13px] font-semibold leading-none text-[#4E2FD2] tabular-nums uppercase">
               {pricing.freeLabel}
             </span>
           </div>
@@ -75,16 +78,13 @@ export function ReviewTotals({
 
       {/* Guarantee + Subtotal */}
       <div className="flex items-center justify-between gap-4">
-        <GuaranteeSeal
-          image={pricing.guaranteeImage}
-          width={pricing.guaranteeWidth}
-        />
+        <GuaranteeSeal width={pricing.guaranteeWidth} />
 
         <div className="flex flex-col items-end text-right overflow-hidden relative">
           <div className="relative min-h-6">
             <div
               key={financingAmount}
-              className="animate-fade-scale rounded-full bg-primary px-2.5 py-0.5 text-xs font-medium text-white mb-2 inline-block"
+              className="animate-fade-scale rounded-[3px] bg-[#4E2FD2] px-2 py-0.5 text-xs font-medium text-white mb-2 inline-block"
             >
               {financingText}
             </div>
@@ -96,7 +96,7 @@ export function ReviewTotals({
                 amount={totals.compareSubtotal}
                 currency={currency}
                 locale={locale}
-                className="text-sm font-medium text-muted-light line-through overflow-hidden whitespace-nowrap tabular-nums"
+                className="text-lg font-medium text-[#6F7882] line-through overflow-hidden whitespace-nowrap tabular-nums"
               />
             )}
 
@@ -104,7 +104,7 @@ export function ReviewTotals({
               amount={totals.subtotal}
               currency={currency}
               locale={locale}
-              className="text-2xl font-extrabold text-primary leading-none whitespace-nowrap tabular-nums"
+              className="text-2xl font-bold text-[#4E2FD2] leading-none whitespace-nowrap tabular-nums"
             />
           </div>
         </div>
@@ -114,10 +114,12 @@ export function ReviewTotals({
       {hasSavings && (
         <div
           key={totals.savings}
-          className="animate-fade-scale text-center text-[12px] font-semibold text-success pt-3 tabular-nums"
+          className="animate-fade-scale text-center text-[12px] font-medium text-success pt-3 tabular-nums"
         >
-          {pricing.savingsLabel}{" "}
+          {/* {pricing.savingsLabel}{" "} */}
+          Congrats! You’re saving {" "}
           {formatMoney(totals.savings, { currency, locale })}
+          {" "} on your security bundle!
         </div>
       )}
     </div>

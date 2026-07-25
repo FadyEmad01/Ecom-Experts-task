@@ -27,7 +27,7 @@ export function ReviewGroup({
 }: ReviewGroupProps) {
   return (
     <section>
-      <h3 className="mb-0 text-xs font-normal uppercase text-muted-light">
+      <h3 className="mb-0 text-xs font-normal uppercase text-muted-light tracking-wide">
         {group.label}
       </h3>
 

@@ -110,7 +110,7 @@ export function ReviewPanel({
             onClick={() =>
               toast.warning("Checkout is currently disabled from this screen.")
             }
-            className="w-full h-11 text-sm font-bold bg-primary text-white hover:text-primary relative overflow-hidden z-10 before:absolute before:-z-10 before:bg-white before:w-full before:aspect-square before:rounded-full before:transition-all before:duration-700 before:-right-full hover:before:right-0 hover:before:scale-150"
+            className="w-full h-11 text-sm font-bold bg-[#4E2FD2] text-white rounded"
             disabled={!hasItems}
           >
             {data.reviewPanel.actions.checkoutLabel}
@@ -118,13 +118,13 @@ export function ReviewPanel({
 
           <Button
             type="button"
-            variant="ghost"
+            variant="link"
             disabled={!hasItems}
             onClick={() => {
               onSave();
               toast.success("Bundle saved for later!");
             }}
-            className="w-full text-center text-xs font-bold text-muted underline hover:text-slate-900 transition disabled:pointer-events-none disabled:opacity-50"
+            className="w-full text-center text-xs font-normal italic text-muted underline underline-offset-1"
           >
             {data.reviewPanel.actions.saveLabel}
           </Button>

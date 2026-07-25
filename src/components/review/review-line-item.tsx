@@ -22,15 +22,15 @@ export function ReviewLineItem({
     line.compareLineTotal !== null && line.compareLineTotal > line.lineTotal;
 
   return (
-    <div className="flex items-center gap-3 py-3 border-b border-line-soft/50">
-      <div className="flex size-10 shrink-0 items-center justify-center overflow-hidden rounded bg-white">
+    <div className="flex items-center gap-3 py-3 border-b border-[#CED6DE]">
+      <div className="flex size-10 shrink-0 items-center justify-center overflow-hidden rounded-[5px] bg-white">
         <Image
           src={imageSrc}
           alt={line.product.name}
           className="size-full object-contain p-1"
           loading="lazy"
-          width={40}
-          height={40}
+          width={41}
+          height={41}
         />
       </div>
 
@@ -43,7 +43,7 @@ export function ReviewLineItem({
         </h3>
       </div>
 
-      <div className="shrink-0 flex items-center gap-4">
+      <div className="shrink-0 flex items-center-safe gap-4">
         <QuantityStepper
           value={line.line.quantity}
           inReview={true}
@@ -59,7 +59,7 @@ export function ReviewLineItem({
               amount={line.compareLineTotal ?? 0}
               currency={currency}
               locale={locale}
-              className="text-[11px] font-medium text-muted-light line-through leading-none mb-0.5"
+              className="text-sm font-medium text-muted-light line-through leading-none mb-0.5 -mt-1.5"
             />
           )}
 
@@ -68,7 +68,7 @@ export function ReviewLineItem({
             amount={line.lineTotal}
             currency={currency}
             locale={locale}
-            className="text-[13px] font-semibold leading-none text-primary"
+            className="text-sm font-semibold leading-none text-[#4E2FD2]"
           />
         </div>
       </div>
